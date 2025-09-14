@@ -54,3 +54,7 @@ This is a starter implementation of a multi-tenant Notes SaaS app (shared schema
 - Passwords are hashed using bcrypt.
 - JWT contains `userId`, `tenantId`, and `role`.
 - Always filter by `tenant_id` in queries to ensure isolation.
+  **DATABASE URL(Supabase)**
+NEXT_PUBLIC_SUPABASE_URL=https://ldmjatxafblezxjurqtp.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkbWphdHhhZmJsZXp4anVycXRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3ODA1NzgsImV4cCI6MjA3MzM1NjU3OH0.67LkSeRF45alGimWMZPKq8GPW6Wy8ZL3t18vDPWGaaQ
+
