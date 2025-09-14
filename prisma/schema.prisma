@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+
+  // Tell Prisma these schemas exist
+  schemas  = ["public", "auth"]
+}
+
+// ===============================
+// Managed by Prisma
+// ===============================
+model Tenant {
+  id        String    @id @default(uuid()) @db.Uuid
+  slug      String    @unique
+  name      String
+  plan      String    @default("free") // free | pro
+  profiles  Profile[]
+  notes     Note[]
+  createdAt DateTime  @default(now())
+
+  @@map("tenants")
+  @@schema("public")
+}
+
+model Profile {
+  userId    String   @id @db.Uuid
+  tenantId  String   @db.Uuid
+  email     String
+  role      String   // "admin" | "member"
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  notes     Note[]
+  createdAt DateTime @default(now())
+
+  @@map("profiles")
+  @@schema("public")
+}
+
+model Note {
+  id        String   @id @default(uuid()) @db.Uuid
+  title     String
+  body      String?
+  tenantId  String   @db.Uuid
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  userId    String?  @db.Uuid
+  profile   Profile? @relation(fields: [userId], references: [userId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("notes")
+  @@schema("public")
+}
+
+// ===============================
+// Shadow model for Supabase auth.users
+// Prisma is aware, but won’t migrate it
+// ===============================
+model AuthUser {
+  id         String   @id @db.Uuid
+  email      String?
+  created_at DateTime @default(now())
+
+  @@map("users")
+  @@schema("auth")
+  @@ignore  // very important ⚡
+}

@@ -1,0 +1,43 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth/login",
+      "destination": "/api/auth/login"
+    },
+    {
+      "source": "/tenants/:slug/upgrade",
+      "destination": "/api/tenants/:slug/upgrade"
+    },
+    {
+      "source": "/notes/:id",
+      "destination": "/api/notes/:id"
+    },
+    {
+      "source": "/notes",
+      "destination": "/api/notes"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Authorization, Content-Type"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+        }
+      ]
+    }
+  ]
+}
